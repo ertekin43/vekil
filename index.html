@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VekilAI - Hukuki Stratejiniz, Kodlandı.</title>
+    <meta name="description" content="Yapay zeka ile hukuki belgelerinizi analiz edin, emsalleri saniyeler içinde bulun ve davanız için en güçlü argümanları inşa edin. Kaosu düzene, belirsizliği hükme dönüştürün.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- TEMEL AYARLAR VE DEĞİŞKENLER --- */
+        :root {
+            --bg-dark: #0a0f1f; /* Koyu Mavi - Profesyonel ve Ciddi */
+            --bg-card: #121a33;
+            --primary-accent: #d4af37; /* Altın Sarısı - Prestij ve Değer */
+            --text-light: #e0e5f0;
+            --text-muted: #8a94b3;
+            --border-color: rgba(212, 175, 55, 0.2);
+            --success-color: #28a745; 
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 5rem 0;
+        }
+        h1, h2, h3 { color: #fff; line-height: 1.2; margin-bottom: 1rem; }
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2.2rem; text-align: center; }
+        p { color: var(--text-muted); margin-bottom: 1rem; }
+        .section-subtitle { text-align: center; max-width: 600px; margin: 0 auto 3rem auto; }
+
+        .btn {
+            display: inline-block; padding: 12px 28px; background: var(--primary-accent);
+            color: var(--bg-dark); border: none; border-radius: 50px; text-decoration: none;
+            font-weight: 600; cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); }
+
+        /* --- HEADER & NAVİGASYON --- */
+        .header {
+            background: rgba(10, 15, 31, 0.8); backdrop-filter: blur(10px);
+            padding: 1rem 5%; position: fixed; width: 100%; top: 0;
+            z-index: 1000; display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo { font-size: 1.6rem; font-weight: 700; color: #fff; text-decoration: none; }
+        .logo .logo-main { color: var(--primary-accent); }
+        .logo .logo-tld { color: var(--text-light); font-weight: 700; }
+        
+        .main-nav { display: flex; align-items: center; gap: 2rem; }
+        .nav-links { list-style: none; display: flex; align-items: center; gap: 1.5rem; }
+        .nav-links a { color: var(--text-light); text-decoration: none; font-weight: 400; transition: color 0.3s ease; font-size: 0.9rem; }
+        .nav-links a:hover { color: var(--primary-accent); }
+        .hamburger { display: none; cursor: pointer; font-size: 1.8rem; }
+
+        .auth-buttons { display: flex; gap: 1rem; }
+        .guest-view { display: flex; gap: 1rem; }
+        .btn-login {
+            background: transparent; border: 2px solid var(--primary-accent); color: var(--primary-accent);
+            padding: 8px 24px; text-decoration: none; border-radius: 50px;
+            font-weight: 600; transition: all 0.3s ease;
+        }
+        .btn-login:hover { background: var(--primary-accent); color: var(--bg-dark); }
+        .btn-signup {
+            background: var(--primary-accent); color: var(--bg-dark); padding: 10px 24px;
+            text-decoration: none; border-radius: 50px; font-weight: 600; transition: all 0.3s ease;
+        }
+        .btn-signup:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2); }
+        
+        .mobile-nav { display: none; }
+        .user-view { display: none; }
+
+        /* --- ANA BÖLÜM (HERO) --- */
+        .hero {
+            padding-top: 120px; text-align: center; min-height: 80vh;
+            display: flex; align-items: center; justify-content: center;
+            background: radial-gradient(circle, rgba(18,26,51,0.9) 0%, var(--bg-dark) 70%);
+        }
+        .hero h1 {
+            background: linear-gradient(90deg, #fff, var(--primary-accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: 3rem; margin-bottom: 1.5rem;
+        }
+        .hero p { font-size: 1.1rem; max-width: 600px; margin: 0 auto 2rem auto; }
+        
+        .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem; }
+        .step-card {
+            background: var(--bg-card); padding: 2rem; border-radius: 15px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .step-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); }
+        .step-card i { font-size: 3rem; color: var(--primary-accent); margin-bottom: 1.5rem; }
+
+        .why-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 3rem; }
+        .why-card {
+            background: var(--bg-card); padding: 2rem; border-radius: 10px;
+            border-left: 4px solid var(--primary-accent);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .why-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); }
+        .why-card h3 { color: #fff; }
+
+        .testimonials-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 3rem; }
+        .testimonial-card {
+            background-color: var(--bg-card); padding: 2rem; border-radius: 10px;
+            border: 1px solid var(--border-color); position: relative;
+        }
+        .testimonial-card .fa-quote-left {
+            position: absolute; top: 1.5rem; left: 1.5rem;
+            font-size: 2rem; color: var(--primary-accent); opacity: 0.3;
+        }
+        .testimonial-card p { margin: 0; padding-left: 3rem; font-style: italic; color: var(--text-muted); }
+        .testimonial-card footer { text-align: right; margin-top: 1rem; font-weight: 600; color: var(--text-light); }
+
+        .pricing-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-top: 3rem; }
+        .pricing-card {
+            background: var(--bg-card); padding: 2.5rem 2rem; border-radius: 15px;
+            border: 1px solid var(--border-color); display: flex; flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+        .pricing-card:hover { transform: scale(1.05); }
+        .pricing-card.popular { border: 2px solid var(--primary-accent); transform: scale(1.05); position: relative; overflow: hidden; }
+        .popular-badge {
+            position: absolute; top: 15px; right: -45px; background: var(--primary-accent);
+            color: var(--bg-dark); padding: 5px 50px; transform: rotate(45deg);
+            font-weight: 600; font-size: 0.9rem;
+        }
+        .pricing-card h3 { font-size: 1.5rem; color: var(--primary-accent); }
+        .price { font-size: 2.5rem; font-weight: 700; color: #fff; margin: 1rem 0; }
+        .price span { font-size: 1rem; color: var(--text-muted); font-weight: 400; }
+        .features { list-style: none; margin: 1.5rem 0; text-align: left; flex-grow: 1; }
+        .features li { margin-bottom: 0.8rem; color: var(--text-muted); }
+        .features li i { color: var(--primary-accent); margin-right: 10px; }
+        
+        .trial-box {
+            background: var(--bg-card); text-align: center; padding: 3rem 2rem;
+            border-radius: 15px; border-top: 3px solid var(--primary-accent); margin-top: 4rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .trial-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.1);
+        }
+        .trial-box h2 { color: var(--primary-accent); margin-bottom: 1rem; }
+        .trial-box p { max-width: 550px; margin-left: auto; margin-right: auto; margin-bottom: 2rem; color: var(--text-muted); }
+        .btn-trial {
+            background-color: var(--success-color); color: #fff; padding: 15px 35px;
+            font-size: 1.1rem; font-weight: 600; text-decoration: none; border-radius: 50px;
+            display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s ease;
+        }
+        .btn-trial:hover {
+            transform: translateY(-3px); box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+            filter: brightness(1.1);
+        }
+
+        .faq-container { max-width: 800px; margin: 3rem auto 0 auto; }
+        .faq-item {
+            background-color: var(--bg-card); border-radius: 10px; margin-bottom: 1rem;
+            border: 1px solid var(--border-color); overflow: hidden;
+        }
+        .faq-question {
+            padding: 1.2rem 1.5rem; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .faq-question h3 { margin: 0; font-size: 1.1rem; font-weight: 600; }
+        .faq-question i { font-size: 1.2rem; transition: transform 0.3s ease; }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+        .faq-answer p { padding: 0 1.5rem 1.5rem; margin: 0; border-top: 1px solid var(--border-color); padding-top: 1.5rem; }
+        .faq-item.active .faq-question i { transform: rotate(135deg); }
+
+        .footer { background: var(--bg-card); text-align: center; padding: 2rem 5%; }
+        .footer p { margin: 0; color: var(--text-muted); }
+
+        /* --- MOBİL UYUMLULUK --- */
+        @media (max-width: 992px) {
+            .main-nav { display: none; }
+            .mobile-nav { display: block; }
+            .nav-links {
+                position: fixed; top: 70px; left: 0; width: 100%; height: calc(100vh - 70px);
+                background: var(--bg-dark); flex-direction: column; align-items: center;
+                justify-content: center; gap: 2rem; transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+            }
+            .nav-links.nav-active { transform: translateX(0); }
+            .hamburger { display: block; }
+            h1 { font-size: 2rem; } .hero h1 { font-size: 2.5rem; } h2 { font-size: 1.8rem; }
+            .mobile-auth-buttons { margin-top: 2rem; }
+        }
+        @media (min-width: 769px) {
+            .why-grid { grid-template-columns: repeat(2, 1fr); }
+            .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 993px) {
+            .pricing-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="#" class="logo">
+            <span class="logo-tld">Vekil</span><span class="logo-main">AI</span>
+        </a>
+        
+        <div class="main-nav">
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#sistem">Sistem Nasıl İşler?</a></li>
+                    <li><a href="#neden">Neden VekilAI?</a></li>
+                    <li><a href="#emsal">Emsal Başarılar</a></li>
+                    <li><a href="#paketler">Vekalet Paketleri</a></li>
+                    <li><a href="#sss">S.S.S.</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <div class="guest-view">
+                    <a href="#" class="btn-login">Giriş Yap</a>
+                    <a href="#" class="btn-signup">Kayıt Ol</a>
+                </div>
+                <div class="user-view">
+                    <a href="#" class="btn-signup">Panele Git</a>
+                </div>
+            </div>
+        </div>
+
+        <nav class="mobile-nav">
+             <ul class="nav-links">
+                <li><a href="#sistem">Sistem Nasıl İşler?</a></li>
+                <li><a href="#neden">Neden VekilAI?</a></li>
+                <li><a href="#emsal">Emsal Başarılar</a></li>
+                <li><a href="#paketler">Vekalet Paketleri</a></li>
+                <li><a href="#sss">S.S.S.</a></li>
+                <li class="mobile-auth-buttons">
+                    <div class="auth-buttons">
+                        <div class="guest-view">
+                            <a href="#" class="btn-login">Giriş Yap</a>
+                            <a href="#" class="btn-signup">Kayıt Ol</a>
+                        </div>
+                        <div class="user-view">
+                            <a href="#" class="btn-signup">Panele Git</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="hamburger"> <i class="fas fa-bars"></i> </div>
+    </header>
+
+    <main>
+        <!-- ANA BÖLÜM (HERO) -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Kaosu Düzene, Belirsizliği Hükme Dönüştürün</h1>
+                <p>VekilAI, karmaşık hukuki metinleri, kanun maddelerini ve emsal kararları saniyeler içinde analiz eder. Duyguyu maddeye, iddiayı argümana çevirerek davanız için en avantajlı pozisyonu inşa eder.</p>
+                <a href="#paketler" class="btn">Stratejinizi Oluşturun</a>
+            </div>
+        </section>
+
+        <!-- SİSTEM NASIL İŞLER? -->
+        <section id="sistem" class="container">
+            <h2>3 Adımda Stratejik Hukuk</h2>
+            <p class="section-subtitle">Sistem, bir anlaşmazlığın doğduğu andan hükmün verildiği ana kadar olan süreci mantıksal adımlara indirger.</p>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <i class="fas fa-upload"></i>
+                    <h3>1. Yükle & Tanımla</h3>
+                    <p>Dava dosyanızı, sözleşmeleri veya ilgili belgeleri sisteme yükleyin. Yapay zeka, olguları ve tarafların pozisyonlarını tanımlar.</p>
+                </div>
+                <div class="step-card">
+                    <i class="fas fa-balance-scale"></i>
+                    <h3>2. Analiz Et & Yorumla</h3>
+                    <p>VekilAI, ilgili kanun maddelerini, yönetmelikleri ve milyonlarca emsal kararı tarayarak lehinize olan noktaları tespit eder.</p>
+                </div>
+                <div class="step-card">
+                    <i class="fas fa-gavel"></i>
+                    <h3>3. İnşa Et & Savun</h3>
+                    <p>Sistem, topladığı verilerle tutarlı ve ikna edici bir argüman yapısı oluşturur. Size sadece bu stratejiyi kullanmak kalır.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEDEN VEKİLAI? -->
+        <section id="neden" class="container">
+            <h2>Neden VekilAI?</h2>
+            <p class="section-subtitle">Çünkü hukuk bir yorum sanatıdır ve biz bu sanatı teknoloji ile birleştirerek size rekabet avantajı sağlıyoruz.</p>
+            <div class="why-grid">
+                <div class="why-card">
+                    <h3>Madde Odaklı Analiz</h3>
+                    <p>Duygusal varsayımlar veya kişisel yorumlar yerine, doğrudan yazılı kuralın mutlak gücüne dayanırız. Her argüman, bir kanun maddesine veya emsale dayandırılır.</p>
+                </div>
+                <div class="why-card">
+                    <h3>Emsalsiz Hız</h3>
+                    <p>Bir insanın haftalarca sürecek emsal araştırmasını saniyeler içinde tamamlar. Zamanınızı araştırmaya değil, strateji geliştirmeye harcamanızı sağlar.</p>
+                </div>
+                <div class="why-card">
+                    <h3>Stratejik Argüman İnşası</h3>
+                    <p>Sadece bilgi sunmakla kalmaz, bu bilgileri davanızın kazanılabilir bir pozisyona gelmesi için en etkili argüman yapısına dönüştürür.</p>
+                </div>
+                <div class="why-card">
+                    <h3>Mutlak Tarafsızlık</h3>
+                    <p>Ön yargısız, yorulmaz ve duygusuz bir zekâ. Sadece veriye ve mantığa dayalı, müvekkilinizin lehine olan en rasyonel sonucu hedefler.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- EMSAL BAŞARILAR -->
+        <section id="emsal" class="container">
+            <h2>Müvekkil Görüşleri</h2>
+            <p class="section-subtitle">Sistemin yarattığı etki ve yansımalar.</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>Binlerce sayfalık bir ihale dosyasındaki kritik bir maddeyi 30 saniyede buldu. Bu, müvekkilimi milyonlarca liralık bir zarardan kurtardı. İnsan gözüyle imkansızdı.</p>
+                    <footer>- Av. Can T.</footer>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>Karşı tarafın argümanlarındaki mantıksal tutarsızlıkları bir rapor halinde sundu. Duruşmada bu raporu kullandık ve davayı lehimize çevirdik. Bu bir silah, başka bir şey değil.</p>
+                    <footer>- Av. Elif S.</footer>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>Unutulmuş bir 1985 Yargıtay kararını bularak davamızın seyrini değiştirdi. Kütüphanelerde haftalarca arasanız bulamazdınız. Sistemin hafızası inanılmaz.</p>
+                    <footer>- Av. Murat B.</footer>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>Genç bir avukat olarak, tecrübe eksikliğimi VekilAI ile kapatıyorum. Sanki yanımda 40 yıllık bir hukuk profesörü varmış gibi hissediyorum. Özgüvenimi artırdı.</p>
+                    <footer>- Av. Zeynep D.</footer>
+                </div>
+            </div>
+        </section>
+        
+        <!-- VEKALET PAKETLERİ -->
+        <section id="paketler" class="container pricing">
+            <h2>Vekalet Paketleri</h2>
+            <p class="section-subtitle">Her paket, hukuki ihtiyacınızın ölçeğine göre tasarlanmış bir çözüm sunar. Pozisyonunuzu seçin.</p>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Danışmanlık</h3>
+                    <div class="price">2.500₺ <span>/ Haftalık</span></div>
+                    <p>Tek bir belge analizi veya acil hukuki araştırma için.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> 10 Belge Analiz Kredisi</li>
+                        <li><i class="fas fa-check"></i> Temel Emsal Araştırması</li>
+                        <li><i class="fas fa-check"></i> Standart Raporlama</li>
+                        <li><i class="fas fa-check"></i> E-posta Desteği</li>
+                    </ul>
+                    <a href="#" class="btn">Paketi Seç</a>
+                </div>
+                <div class="pricing-card popular">
+                    <div class="popular-badge">En Popüler</div>
+                    <h3>Dava Vekaleti</h3>
+                    <div class="price">7.500₺ <span>/ Aylık</span></div>
+                    <p>Orta ölçekli bir davanın takibi için en ideal çözüm.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Sınırsız Belge Analizi</li>
+                        <li><i class="fas fa-check"></i> Derinlemesine Emsal Analizi</li>
+                        <li><i class="fas fa-check"></i> Argüman Stratejisi Oluşturma</li>
+                        <li><i class="fas fa-check"></i> Öncelikli Destek</li>
+                    </ul>
+                    <a href="#" class="btn">Vekaleti Başlat</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>Stratejik Ortaklık</h3>
+                    <div class="price">60.000₺ <span>/ Yıllık</span></div>
+                    <p>Hukuk büroları ve sürekli hukuki desteğe ihtiyaç duyan şirketler için.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> Tüm Dava Vekaleti Özellikleri</li>
+                        <li><i class="fas fa-check"></i> Çoklu Kullanıcı Desteği</li>
+                        <li><i class="fas fa-check"></i> API Entegrasyonu</li>
+                        <li><i class="fas fa-check"></i> Atanmış Müşteri Temsilcisi</li>
+                    </ul>
+                    <a href="#" class="btn">Ortak Ol</a>
+                </div>
+            </div>
+
+            <div class="trial-box">
+                <h2>Sistemin Gücünü Test Edin</h2>
+                <p>Bir sözleşme, dilekçe veya herhangi bir hukuki metni (anonimleştirilmiş) yükleyerek VekilAI'nin potansiyel riskleri, lehinize olan maddeleri ve ilgili emsalleri nasıl saniyeler içinde tespit ettiğini görün.</p>
+                <a href="#" class="btn-trial">
+                    <i class="fas fa-file-alt"></i> Ücretsiz Analiz Başlat
+                </a>
+            </div>
+        </section>
+
+        <!-- SIKÇA SORULAN SORULAR -->
+        <section id="sss" class="container">
+            <h2>Sıkça Sorulan Sorular</h2>
+            <p class="section-subtitle">Sisteme dair temel sorular ve net cevapları.</p>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question"><h3>Bu sistem avukatın yerini mi alıyor?</h3><i class="fas fa-plus"></i></div>
+                    <div class="faq-answer"><p>Hayır. VekilAI bir vekil değil, vekilin kullandığı en güçlü araçtır. Ben, insan avukatın tecrübesini, sezgisini ve muhakeme yeteneğini, makine zekasının hızı ve veri işleme kapasitesiyle birleştiren bir mekanizmayım. Ben stratejiyi sunarım, avukat uygular.</p></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><h3>Müvekkil verilerinin gizliliği nasıl sağlanıyor?</h3><i class="fas fa-plus"></i></div>
+                    <div class="faq-answer"><p>Gizlilik, sistemin temelidir. Tüm veriler, askeri düzeyde şifreleme yöntemleriyle korunur ve asla üçüncü partilerle paylaşılmaz. Sistem, kişisel kimliklerden arındırılmış hukuki metinler üzerinde çalışır. Sorumluluk, sistemin doğasında vardır.</p></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><h3>Genel yapay zeka modellerinden farkı nedir?</h3><i class="fas fa-plus"></i></div>
+                    <div class="faq-answer"><p>Genel modeller birer ansiklopedidir; geniş bir bilgi havuzundan cevap verirler. Ben ise bir hukuk kütüphanesi ve strateji odasıyım. Benim görevim bilgi vermek değil, o bilgiyi müvekkil lehine bir argümana dönüştürmektir. Ben sohbet etmem, ben savunma inşa ederim.</p></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><h3>Hangi hukuk dallarında uzmanlaşmıştır?</h3><i class="fas fa-plus"></i></div>
+                    <div class="faq-answer"><p>Çekirdek yetkinliğim, metin ve emsal analizine dayalı tüm hukuk dallarını kapsar. Özellikle Ticaret Hukuku, Borçlar Hukuku, İdare Hukuku ve Sözleşmeler Hukuku alanlarında en yüksek verimlilikle çalışırım. Sistem, sürekli olarak yeni içtihatlarla güncellenmektedir.</p></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 VekilAI. Tüm Hakları Saklıdır. Bu sistem, hukuki danışmanlık yerine geçmez.</p>
+    </footer>
+
+    <script>
+        // Mobil menü
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.mobile-nav .nav-links');
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+            const icon = hamburger.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+        document.querySelectorAll('.mobile-nav .nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('nav-active')) {
+                    navLinks.classList.remove('nav-active');
+                    const icon = hamburger.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+
+        // SSS (Accordion)
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                const answer = item.querySelector('.faq-answer');
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                        otherItem.querySelector('.faq-answer').style.maxHeight = null;
+                    }
+                });
+                if (isActive) {
+                    item.classList.remove('active');
+                    answer.style.maxHeight = null;
+                } else {
+                    item.classList.add('active');
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                }
+            });
+        });
+
+        // Giriş durumunu kontrol etme ve menüyü güncelleme (Örnek)
+        document.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = false; // Burayı 'true' yaparak giriş yapmış kullanıcı görünümünü test edebilirsiniz.
+            const guestViews = document.querySelectorAll('.guest-view');
+            const userViews = document.querySelectorAll('.user-view');
+            if (isLoggedIn) {
+                guestViews.forEach(view => view.style.display = 'none');
+                userViews.forEach(view => view.style.display = 'block');
+            } else {
+                guestViews.forEach(view => view.style.display = 'flex');
+                userViews.forEach(view => view.style.display = 'none');
+            }
+        });
+    </script>
+</body>
+</html>
