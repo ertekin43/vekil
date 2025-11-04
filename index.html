@@ -23,7 +23,7 @@
             --text-light: #e0e5f0;
             --text-muted: #8a94b3;
             --border-color: rgba(212, 175, 55, 0.2);
-            --success-color: #28a745; 
+            --whatsapp-color: #25D366; 
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -77,11 +77,6 @@
             font-weight: 600; transition: all 0.3s ease;
         }
         .btn-login:hover { background: var(--primary-accent); color: var(--bg-dark); }
-        .btn-signup {
-            background: var(--primary-accent); color: var(--bg-dark); padding: 10px 24px;
-            text-decoration: none; border-radius: 50px; font-weight: 600; transition: all 0.3s ease;
-        }
-        .btn-signup:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2); }
         
         .mobile-nav { display: none; }
         .user-view { display: none; }
@@ -133,7 +128,7 @@
         .pricing-card {
             background: var(--bg-card); padding: 2.5rem 2rem; border-radius: 15px;
             border: 1px solid var(--border-color); display: flex; flex-direction: column;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease; text-align: center;
         }
         .pricing-card:hover { transform: scale(1.05); }
         .pricing-card.popular { border: 2px solid var(--primary-accent); transform: scale(1.05); position: relative; overflow: hidden; }
@@ -145,9 +140,7 @@
         .pricing-card h3 { font-size: 1.5rem; color: var(--primary-accent); }
         .price { font-size: 2.5rem; font-weight: 700; color: #fff; margin: 1rem 0; }
         .price span { font-size: 1rem; color: var(--text-muted); font-weight: 400; }
-        .features { list-style: none; margin: 1.5rem 0; text-align: left; flex-grow: 1; }
-        .features li { margin-bottom: 0.8rem; color: var(--text-muted); }
-        .features li i { color: var(--primary-accent); margin-right: 10px; }
+        .pricing-card .btn { margin-top: 1.5rem; }
         
         .trial-box {
             background: var(--bg-card); text-align: center; padding: 3rem 2rem;
@@ -161,12 +154,12 @@
         .trial-box h2 { color: var(--primary-accent); margin-bottom: 1rem; }
         .trial-box p { max-width: 550px; margin-left: auto; margin-right: auto; margin-bottom: 2rem; color: var(--text-muted); }
         .btn-trial {
-            background-color: var(--success-color); color: #fff; padding: 15px 35px;
+            background-color: var(--whatsapp-color); color: #fff; padding: 15px 35px;
             font-size: 1.1rem; font-weight: 600; text-decoration: none; border-radius: 50px;
             display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s ease;
         }
         .btn-trial:hover {
-            transform: translateY(-3px); box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+            transform: translateY(-3px); box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
             filter: brightness(1.1);
         }
 
@@ -184,6 +177,22 @@
         .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
         .faq-answer p { padding: 0 1.5rem 1.5rem; margin: 0; border-top: 1px solid var(--border-color); padding-top: 1.5rem; }
         .faq-item.active .faq-question i { transform: rotate(135deg); }
+
+        /* YENİ İLETİŞİM BÖLÜMÜ STİLLERİ */
+        .contact-section { text-align: center; }
+        .contact-card {
+            background: var(--bg-card); padding: 3rem 2rem; border-radius: 15px;
+            border: 1px solid var(--border-color); max-width: 600px; margin: 3rem auto 0 auto;
+        }
+        .contact-card h3 { color: var(--primary-accent); margin-bottom: 0.5rem; }
+        .contact-details { margin-top: 1.5rem; }
+        .contact-details p { font-size: 1.1rem; margin-bottom: 1.2rem; }
+        .contact-details a {
+            color: var(--text-light); text-decoration: none; display: inline-flex;
+            align-items: center; gap: 10px; transition: color 0.3s ease;
+        }
+        .contact-details a:hover { color: var(--primary-accent); }
+        .contact-details i { color: var(--primary-accent); font-size: 1.2rem; }
 
         .footer { background: var(--bg-card); text-align: center; padding: 2rem 5%; }
         .footer p { margin: 0; color: var(--text-muted); }
@@ -227,15 +236,15 @@
                     <li><a href="#emsal">Emsal Başarılar</a></li>
                     <li><a href="#paketler">Vekalet Paketleri</a></li>
                     <li><a href="#sss">S.S.S.</a></li>
+                    <li><a href="#iletisim">İletişim</a></li>
                 </ul>
             </nav>
             <div class="auth-buttons">
                 <div class="guest-view">
-                    <a href="#" class="btn-login">Giriş Yap</a>
-                    <a href="#" class="btn-signup">Kayıt Ol</a>
+                    <a href="login.html" class="btn-login">Giriş Yap</a>
                 </div>
                 <div class="user-view">
-                    <a href="#" class="btn-signup">Panele Git</a>
+                    <a href="#" class="btn-login">Panele Git</a>
                 </div>
             </div>
         </div>
@@ -247,14 +256,14 @@
                 <li><a href="#emsal">Emsal Başarılar</a></li>
                 <li><a href="#paketler">Vekalet Paketleri</a></li>
                 <li><a href="#sss">S.S.S.</a></li>
+                <li><a href="#iletisim">İletişim</a></li>
                 <li class="mobile-auth-buttons">
                     <div class="auth-buttons">
                         <div class="guest-view">
-                            <a href="#" class="btn-login">Giriş Yap</a>
-                            <a href="#" class="btn-signup">Kayıt Ol</a>
+                            <a href="login.html" class="btn-login">Giriş Yap</a>
                         </div>
                         <div class="user-view">
-                            <a href="#" class="btn-signup">Panele Git</a>
+                            <a href="#" class="btn-login">Panele Git</a>
                         </div>
                     </div>
                 </li>
@@ -268,7 +277,7 @@
         <!-- ANA BÖLÜM (HERO) -->
         <section class="hero">
             <div class="hero-content">
-                <h1>Kaosu Düzene, Belirsizliği Hükme Dönüştürün</h1>
+                <h1>Yapay Zeka Destekli Argüman. Davanız İçin En Keskin Zihin.</h1>
                 <p>VekilAI, karmaşık hukuki metinleri, kanun maddelerini ve emsal kararları saniyeler içinde analiz eder. Duyguyu maddeye, iddiayı argümana çevirerek davanız için en avantajlı pozisyonu inşa eder.</p>
                 <a href="#paketler" class="btn">Stratejinizi Oluşturun</a>
             </div>
@@ -352,43 +361,25 @@
         <!-- VEKALET PAKETLERİ -->
         <section id="paketler" class="container pricing">
             <h2>Vekalet Paketleri</h2>
-            <p class="section-subtitle">Her paket, hukuki ihtiyacınızın ölçeğine göre tasarlanmış bir çözüm sunar. Pozisyonunuzu seçin.</p>
+            <p class="section-subtitle">Tüm VekilAI özelliklerine, ihtiyacınız olan süre boyunca tam erişim sağlayın.</p>
             <div class="pricing-grid">
                 <div class="pricing-card">
                     <h3>Danışmanlık</h3>
-                    <div class="price">2.500₺ <span>/ Haftalık</span></div>
-                    <p>Tek bir belge analizi veya acil hukuki araştırma için.</p>
-                    <ul class="features">
-                        <li><i class="fas fa-check"></i> 10 Belge Analiz Kredisi</li>
-                        <li><i class="fas fa-check"></i> Temel Emsal Araştırması</li>
-                        <li><i class="fas fa-check"></i> Standart Raporlama</li>
-                        <li><i class="fas fa-check"></i> E-posta Desteği</li>
-                    </ul>
+                    <div class="price">1.490₺ <span>/ Haftalık</span></div>
+                    <p>Kısa süreli ve yoğun projeleriniz için bir haftalık tam erişim.</p>
                     <a href="#" class="btn">Paketi Seç</a>
                 </div>
                 <div class="pricing-card popular">
                     <div class="popular-badge">En Popüler</div>
                     <h3>Dava Vekaleti</h3>
-                    <div class="price">7.500₺ <span>/ Aylık</span></div>
-                    <p>Orta ölçekli bir davanın takibi için en ideal çözüm.</p>
-                    <ul class="features">
-                        <li><i class="fas fa-check"></i> Sınırsız Belge Analizi</li>
-                        <li><i class="fas fa-check"></i> Derinlemesine Emsal Analizi</li>
-                        <li><i class="fas fa-check"></i> Argüman Stratejisi Oluşturma</li>
-                        <li><i class="fas fa-check"></i> Öncelikli Destek</li>
-                    </ul>
+                    <div class="price">4.990₺ <span>/ Aylık</span></div>
+                    <p>Devam eden davalarınız ve düzenli analiz ihtiyaçlarınız için bir aylık tam erişim.</p>
                     <a href="#" class="btn">Vekaleti Başlat</a>
                 </div>
                 <div class="pricing-card">
                     <h3>Stratejik Ortaklık</h3>
-                    <div class="price">60.000₺ <span>/ Yıllık</span></div>
-                    <p>Hukuk büroları ve sürekli hukuki desteğe ihtiyaç duyan şirketler için.</p>
-                    <ul class="features">
-                        <li><i class="fas fa-check"></i> Tüm Dava Vekaleti Özellikleri</li>
-                        <li><i class="fas fa-check"></i> Çoklu Kullanıcı Desteği</li>
-                        <li><i class="fas fa-check"></i> API Entegrasyonu</li>
-                        <li><i class="fas fa-check"></i> Atanmış Müşteri Temsilcisi</li>
-                    </ul>
+                    <div class="price">49.900₺ <span>/ Yıllık</span></div>
+                    <p>Uzun vadeli stratejik planlama ve kesintisiz destek için en ekonomik yıllık erişim.</p>
                     <a href="#" class="btn">Ortak Ol</a>
                 </div>
             </div>
@@ -396,8 +387,8 @@
             <div class="trial-box">
                 <h2>Sistemin Gücünü Test Edin</h2>
                 <p>Bir sözleşme, dilekçe veya herhangi bir hukuki metni (anonimleştirilmiş) yükleyerek VekilAI'nin potansiyel riskleri, lehinize olan maddeleri ve ilgili emsalleri nasıl saniyeler içinde tespit ettiğini görün.</p>
-                <a href="#" class="btn-trial">
-                    <i class="fas fa-file-alt"></i> Ücretsiz Analiz Başlat
+                <a href="https://wa.me/905312654327?text=Merhaba%2C%20VekilAI%20sitesi%20üzerinden%20ücretsiz%20analiz%20talep%20etmek%20istiyorum." target="_blank" class="btn-trial">
+                    <i class="fab fa-whatsapp"></i> Ücretsiz Analiz Talep Et
                 </a>
             </div>
         </section>
@@ -422,6 +413,28 @@
                 <div class="faq-item">
                     <div class="faq-question"><h3>Hangi hukuk dallarında uzmanlaşmıştır?</h3><i class="fas fa-plus"></i></div>
                     <div class="faq-answer"><p>Çekirdek yetkinliğim, metin ve emsal analizine dayalı tüm hukuk dallarını kapsar. Özellikle Ticaret Hukuku, Borçlar Hukuku, İdare Hukuku ve Sözleşmeler Hukuku alanlarında en yüksek verimlilikle çalışırım. Sistem, sürekli olarak yeni içtihatlarla güncellenmektedir.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- İLETİŞİM BÖLÜMÜ -->
+        <section id="iletisim" class="container contact-section">
+            <h2>İletişim</h2>
+            <p class="section-subtitle">Sorularınız veya iş birliği talepleriniz için doğrudan ulaşabilirsiniz.</p>
+            <div class="contact-card">
+                <h3>Hasan ERTEKİN</h3>
+                <p class="contact-title">Proje Yöneticisi</p>
+                <div class="contact-details">
+                    <p>
+                        <a href="tel:+905312654327">
+                            <i class="fas fa-phone-alt"></i> 0531 265 43 27
+                        </a>
+                    </p>
+                    <p>
+                        <a href="mailto:hasanert@gmail.com">
+                            <i class="fas fa-envelope"></i> hasanert@gmail.com
+                        </a>
+                    </p>
                 </div>
             </div>
         </section>
