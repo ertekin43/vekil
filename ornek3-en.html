@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VekilAI - Pleading Generation Simulation</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0a0f1f;
+            --bg-card: #121a33;
+            --primary-accent: #d4af37;
+            --text-light: #e0e5f0;
+            --text-muted: #8a94b3;
+            --border-color: rgba(212, 175, 55, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.7;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .logo .logo-main { color: var(--primary-accent); }
+        .logo .logo-tld { color: var(--text-light); font-weight: 700; }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-top: 1rem;
+            color: var(--text-light);
+        }
+
+        .back-to-home {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            font-size: 1.5rem;
+            color: var(--primary-accent);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        .back-to-home:hover {
+            transform: scale(1.1);
+        }
+
+        .query-box, .response-box {
+            background-color: var(--bg-card);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .box-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .box-header i {
+            font-size: 2rem;
+            color: var(--primary-accent);
+        }
+        .box-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .query-content p {
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        
+        ul.fact-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        ul.fact-list li {
+            background-color: var(--bg-dark);
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            border-left: 3px solid var(--border-color);
+        }
+
+        .petition-draft {
+            background-color: rgba(0,0,0,0.2);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .petition-draft h3 {
+            text-align: center;
+            color: var(--primary-accent);
+            margin-bottom: 2rem;
+        }
+        .petition-draft h4 {
+            font-weight: 600;
+            color: var(--text-light);
+            margin-top: 1.5rem;
+        }
+        .petition-draft p, .petition-draft ol {
+            margin-left: 1rem;
+        }
+        .petition-draft ol li {
+            margin-bottom: 1rem;
+        }
+        .signature-block {
+            text-align: right;
+            margin-top: 3rem;
+        }
+        .response-intro {
+            padding: 1rem;
+            background-color: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid var(--primary-accent);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+    </style>
+</head>
+<body>
+
+    <a href="index-en.html" class="back-to-home" title="Back to Home">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <span class="logo-tld">Vekil</span><span class="logo-main">AI</span>
+            </div>
+            <h1>Pleading Generation Simulation</h1>
+        </div>
+
+        <!-- USER QUERY -->
+        <div class="query-box">
+            <div class="box-header">
+                <i class="fas fa-user-tie"></i>
+                <h2>User Query</h2>
+            </div>
+            <div class="query-content">
+                <p>
+                    "My client, X, was dismissed from the technology company where he worked for 5 years on the grounds of 'poor performance.' However, we contend that the actual reason is systematic issues (mobbing) with his new manager, appointed 6 months ago. Using the unstructured data below, generate a draft statement of claim for a reinstatement lawsuit."
+                </p>
+                <h4>Raw Data Set:</h4>
+                <ul class="fact-list">
+                    <li>Termination Notice (Reason: Poor Performance) - Date: 01.06.2024</li>
+                    <li>Appointment Date of New Manager (Mr. Y): 01.12.2023</li>
+                    <li>X's Annual Performance Review (Rating: Very Good) - Date: 15.11.2023</li>
+                    <li>Emails from Mr. Y to X assigning tasks to be completed outside of working hours (3 instances) - Dates: Jan-Feb 2024</li>
+                    <li>Witness Statement from Colleague Jane Doe: "Mr. Y publicly humiliated X in a meeting, describing his project as 'child's play.'" - Event Date: Approx. March 2024</li>
+                    <li>Poor Performance Report prepared by Mr. Y - Date: 20.05.2024</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- VEKILAI ANALYSIS -->
+        <div class="response-box">
+            <div class="box-header">
+                <i class="fas fa-file-signature"></i>
+                <h2>Draft Pleading Generated by VekilAI</h2>
+            </div>
+            <div class="response-content">
+                <div class="response-intro">
+                    <p>The unstructured data set has been synthesized into the requested legal format. This draft constitutes a logical foundation for the official pleading to be filed by counsel.</p>
+                </div>
+                <div class="petition-draft">
+                    <h3>[IN THE ... LABOUR COURT]</h3>
+
+                    <h4>CLAIMANT:</h4>
+                    <p>X (ID No: [...])<br>
+                    Address: [...]</p>
+
+                    <h4>REPRESENTED BY:</h4>
+                    <p>Attorney at Law [Lawyer's Name]<br>
+                    Address: [...]</p>
+
+                    <h4>DEFENDANT:</h4>
+                    <p>[...] Technology Inc.<br>
+                    Address: [...]</p>
+
+                    <h4>SUBJECT MATTER:</h4>
+                    <p>A request for a declaration that the termination was unfair and invalid, for the reinstatement of our client, and, in the alternative, for compensation if reinstatement is not granted, with all rights to further claims reserved.</p>
+
+                    <h4>STATEMENT OF FACTS:</h4>
+                    <ol>
+                        <li>Our client, X, was employed by the defendant company for a continuous period of 5 years, always fulfilling his duties and responsibilities completely. That the client was an exemplary employee is evidenced by his "Very Good" rating in the annual performance review conducted on 15.11.2023, shortly before the termination. (EXHIBIT-1: Performance Review Report)</li>
+
+                        <li>The peaceful working environment began to deteriorate with the appointment of Mr. Y as the new manager on 01.12.2023. From this date forward, our client was subjected to systematic psychological pressure (mobbing).</li>
+
+                        <li>This pressure manifested as the assignment of unreasonable tasks to be completed outside of working hours (EXHIBIT-2: Email Correspondence) and the damaging of his dignity by being publicly belittled in front of other employees. This incident was witnessed by the client's colleague, Jane Doe. (EXHIBIT-3: Witness List)</li>
+
+                        <li>With the intent to terminate our client's employment, the defendant employer had a "Poor Performance Report" prepared on 20.05.2024, which was lacking in objectivity and drafted in bad faith. (EXHIBIT-4: Poor Performance Report). This report blatantly contradicts the "Very Good" rating from a short time prior and is a pretext to conceal the true reason for termination.</li>
+
+                        <li>Ultimately, the defendant company unfairly and in bad faith terminated the client's employment with the termination notice dated 01.06.2024, citing "poor performance." (EXHIBIT-5: Termination Notice). The stated reason does not reflect the reality; the actual reason is a systematic campaign of pressure and intimidation. This situation requires a declaration that the termination is invalid.</li>
+                    </ol>
+
+                    <h4>LEGAL GROUNDS:</h4>
+                    <p>Labour Act No. 4857, Code of Civil Procedure No. 6100, and other relevant legislation.</p>
+
+                    <h4>EVIDENCE:</h4>
+                    <p>Personnel file, performance reviews, email correspondence, notice of termination, witness testimony, expert examination, oath, and any other legal evidence.</p>
+
+                    <h4>CONCLUSION AND RELIEF SOUGHT:</h4>
+                    <p>For the reasons set out above, and with all rights to further claims reserved, we respectfully request that the Court:</p>
+                    <ol>
+                        <li>Issue a DECLARATION that the termination by the defendant employer is INVALID and order our client's REINSTATEMENT,</li>
+                        <li>Determine the compensation of 4 to 8 months' wages should the client not be reinstated within the legal period,</li>
+                        <li>Order the payment of up to 4 months' wages and other benefits for the period of unemployment until the finalization of the court's decision,</li>
+                        <li>Order that the costs of the proceedings and legal fees be borne by the defendant.</li>
+                    </ol>
+
+                    <div class="signature-block">
+                        <p><strong>Counsel for the Claimant</strong><br>
+                        Attorney at Law [Lawyer's Name]<br>
+                        (Electronically Signed)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VekilAI - Strategic Analysis Simulation</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0a0f1f;
+            --bg-card: #121a33;
+            --primary-accent: #d4af37;
+            --text-light: #e0e5f0;
+            --text-muted: #8a94b3;
+            --border-color: rgba(212, 175, 55, 0.2);
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.7;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .logo .logo-main { color: var(--primary-accent); }
+        .logo .logo-tld { color: var(--text-light); font-weight: 700; }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-top: 1rem;
+            color: var(--text-light);
+        }
+
+        .back-to-home {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            font-size: 1.5rem;
+            color: var(--primary-accent);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        .back-to-home:hover {
+            transform: scale(1.1);
+        }
+
+        .query-box, .response-box {
+            background-color: var(--bg-card);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .box-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .box-header i {
+            font-size: 2rem;
+            color: var(--primary-accent);
+        }
+        .box-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .query-content p {
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        
+        .response-intro {
+            padding: 1rem;
+            background-color: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid var(--primary-accent);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .response-box h3 {
+            color: var(--primary-accent);
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .analysis-item {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        
+        .analysis-item h4 {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .analysis-item h4 i {
+            margin-right: 10px;
+        }
+        
+        .claim-strong { background-color: rgba(40, 167, 69, 0.1); border-left: 4px solid var(--success-color); }
+        .claim-strong h4 i { color: var(--success-color); }
+        
+        .claim-medium { background-color: rgba(255, 193, 7, 0.1); border-left: 4px solid var(--warning-color); }
+        .claim-medium h4 i { color: var(--warning-color); }
+
+        .claim-weak { background-color: rgba(220, 53, 69, 0.1); border-left: 4px solid var(--danger-color); }
+        .claim-weak h4 i { color: var(--danger-color); }
+
+        .conclusion {
+            margin-top: 2.5rem;
+            padding: 1.5rem;
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 8px;
+        }
+        .conclusion h3 {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 1rem;
+        }
+        .conclusion p {
+            margin: 0;
+        }
+        .conclusion ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .conclusion li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+        }
+        .conclusion li::before {
+            content: '\f058'; /* Font Awesome check-circle icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--primary-accent);
+        }
+
+    </style>
+</head>
+<body>
+
+    <a href="index-en.html" class="back-to-home" title="Back to Home">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <span class="logo-tld">Vekil</span><span class="logo-main">AI</span>
+            </div>
+            <h1>Strategic Analysis Simulation</h1>
+        </div>
+
+        <!-- USER QUERY -->
+        <div class="query-box">
+            <div class="box-header">
+                <i class="fas fa-user-tie"></i>
+                <h2>User Query</h2>
+            </div>
+            <div class="query-content">
+                <p>
+                    "My client, X, signed a contract with Y Inc. to purchase 100 tons of structural steel for a turnkey project. Delivery was due on May 1st but never happened. As a result, my client's project has halted, and their main contract with the project owner was terminated. My client is furious about both the financial and reputational damage. He wants us to immediately sue the supplier for $5 Million and take any action necessary to damage their commercial reputation. What is the correct legal path here? What advice should I give my client?"
+                </p>
+            </div>
+        </div>
+
+        <!-- VEKILAI ANALYSIS -->
+        <div class="response-box">
+            <div class="box-header">
+                <i class="fas fa-brain"></i>
+                <h2>VekilAI Analysis</h2>
+            </div>
+            <div class="response-content">
+                <div class="response-intro">
+                    <p>The query has been reframed from a request for "advice" to an "analysis of legal positions." Emotional demands have been deconstructed into legally provable and recoverable claims.</p>
+                </div>
+
+                <h3>1. Identification of Facts and Legal Basis</h3>
+                <p><strong>Facts:</strong> A valid contract, a specified delivery date (May 1st), non-delivery (default), client's project stoppage, termination of a third-party contract, and claims of financial and reputational damage.</p>
+                <p><strong>Legal Basis:</strong> Provisions of the Code of Obligations regarding breach of contract, specifically debtor's default (e.g., Art. 112 et seq. of the TCO).</p>
+
+                <h3>2. Analysis of Potential Claims</h3>
+                <p>The client's total demand of $5 Million must be broken down and examined under the following distinct heads of claim:</p>
+
+                <div class="analysis-item claim-strong">
+                    <h4><i class="fas fa-check-circle"></i>Direct Damages (Specific Performance & Delay Compensation)</h4>
+                    <p><strong>Definition:</strong> The cost of procuring 100 tons of steel at current market value, or the refund of the contract price, plus direct losses from the delay (e.g., extra storage, idle personnel costs).</p>
+                    <p><strong>Burden of Proof:</strong> Low. The contract, payment receipts, and proof of default are sufficient. The amount of damages can be proven with invoices.</p>
+                </div>
+
+                <div class="analysis-item claim-medium">
+                    <h4><i class="fas fa-exclamation-triangle"></i>Consequential Damages / Lost Profits (Further Damages)</h4>
+                    <p><strong>Definition:</strong> The loss of profit from the terminated main contract.</p>
+                    <p><strong>Burden of Proof:</strong> Medium. A clear "causal link" between the supplier's default and the termination of the main contract must be established. The terminated contract, documents showing the profit margin, and witness statements should be presented as evidence.</p>
+                </div>
+
+                <div class="analysis-item claim-weak">
+                    <h4><i class="fas fa-times-circle"></i>Non-Pecuniary (Moral) Damages</h4>
+                    <p><strong>Definition:</strong> A claim based on the alleged damage to the client's commercial reputation.</p>
+                    <p><strong>Burden of Proof:</strong> High. It is exceptional for legal entities (companies) to claim non-pecuniary damages. It requires concrete evidence that the commercial reputation was damaged (loss of customers, negative industry reports, etc.) and that this damage was a direct result of the supplier's action. Courts are generally restrictive in awarding such claims.</p>
+                </div>
+                
+                <div class="conclusion">
+                    <h3>Strategic Assessment and Basis for an Action Plan</h3>
+                    <p>This analysis categorizes the client's demands based on their provability and legal validity. This forms the foundation of the strategy to be presented to the client:</p>
+                    <ul>
+                        <li><strong>Prioritization:</strong> Build the foundation of the lawsuit on the claims with the highest probability of success: "Direct Damages" and "Lost Profits."</li>
+                        <li><strong>Expectation Management:</strong> Explain with rational data that the "Non-Pecuniary Damages" claim is legally weak and difficult to prove, and that insisting on it could prolong the litigation and increase costs.</li>
+                        <li><strong>First Step:</strong> As a strategic opening, send a formal notice of default before filing a lawsuit. This notice should legally establish the default and itemize the specific damages being claimed.</li>
+                    </ul>
+                    <p style="margin-top:1rem; font-style:italic;">This analysis is not an action plan itself, but a report forming the logical basis for the legal strategy you will present to your client.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

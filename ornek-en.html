@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VekilAI - Query Simulation</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0a0f1f;
+            --bg-card: #121a33;
+            --primary-accent: #d4af37;
+            --text-light: #e0e5f0;
+            --text-muted: #8a94b3;
+            --border-color: rgba(212, 175, 55, 0.2);
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.7;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .logo .logo-main { color: var(--primary-accent); }
+        .logo .logo-tld { color: var(--text-light); font-weight: 700; }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-top: 1rem;
+            color: var(--text-light);
+        }
+
+        .back-to-home {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            font-size: 1.5rem;
+            color: var(--primary-accent);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        .back-to-home:hover {
+            transform: scale(1.1);
+        }
+
+        .query-box, .response-box {
+            background-color: var(--bg-card);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .box-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .box-header i {
+            font-size: 2rem;
+            color: var(--primary-accent);
+        }
+        .box-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .query-content p {
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        pre {
+            background-color: var(--bg-dark);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .response-box h3 {
+            color: var(--primary-accent);
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--primary-accent);
+            padding-left: 1rem;
+        }
+
+        .risk-item {
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+        }
+
+        .risk-item h4 {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        .risk-item strong {
+            color: var(--primary-accent);
+        }
+        .risk-item p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .risk-high { border-left: 3px solid var(--danger-color); }
+        .risk-medium { border-left: 3px solid #ffc107; }
+
+        .conclusion {
+            margin-top: 2.5rem;
+            padding: 1.5rem;
+            background-color: rgba(0,0,0,0.2);
+            border-left: 4px solid var(--success-color);
+            border-radius: 8px;
+        }
+        .conclusion p {
+            margin: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <a href="index-en.html" class="back-to-home" title="Back to Home">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <span class="logo-tld">Vekil</span><span class="logo-main">AI</span>
+            </div>
+            <h1>Query Simulation</h1>
+        </div>
+
+        <!-- USER QUERY -->
+        <div class="query-box">
+            <div class="box-header">
+                <i class="fas fa-user-tie"></i>
+                <h2>User Query</h2>
+            </div>
+            <div class="query-content">
+                <p>"Analyze the following 'Software Development Service Agreement' text on behalf of my client, x Inc., and report potential risks, ambiguous language, and clauses that require negotiation."</p>
+                <h4>Agreement Text (Excerpt):</h4>
+                <pre>
+...
+Article 5: PAYMENT
+5.1. Payment shall be made within 30 days following the successful completion of the project.
+
+Article 7: INTELLECTUAL PROPERTY
+7.1. All intellectual property rights, code, and designs developed within the scope of the project shall belong to y Inc.
+
+Article 9: CONFIDENTIALITY
+9.1. The parties agree and undertake to keep the information within the scope of this agreement confidential for an unlimited period.
+
+Article 11: TERMINATION
+11.1. y Inc. may unilaterally terminate the agreement at any time without cause.
+...
+                </pre>
+            </div>
+        </div>
+
+        <!-- VEKILAI ANALYSIS -->
+        <div class="response-box">
+            <div class="box-header">
+                <i class="fas fa-brain"></i>
+                <h2>VekilAI Analysis</h2>
+            </div>
+            <div class="response-content">
+                <h3>Risk Analysis and Strategic Interpretation for Client x Inc.</h3>
+
+                <div class="risk-item risk-high">
+                    <h4>Article 7.1: Intellectual Property Rights</h4>
+                    <p><strong>Finding:</strong> The article stipulates the transfer of all intellectual property developed by the client to the other party. This means the client would lose the right to use their own developed codebase, libraries, and methodologies in future projects.</p>
+                    <p><strong>Strategic Interpretation:</strong> This clause poses the highest risk to the client's business continuity. During negotiation, it should be demanded that the ownership of the client's "Pre-Existing Intellectual Property" remains with them, and the customer is granted only a "license" to use the project deliverables.</p>
+                </div>
+
+                <div class="risk-item risk-high">
+                    <h4>Article 11.1: Unilateral Termination Right</h4>
+                    <p><strong>Finding:</strong> An indefinite right of termination without cause is granted to the other party. This creates the risk of the contract ending abruptly before the client can recoup their investment and allocated resources.</p>
+                    <p><strong>Strategic Interpretation:</strong> The right to terminate should be tied to the existence of "just cause," or it should be stipulated that if the other party exercises its right to terminate without cause, the client will be reimbursed for all expenses incurred to date plus a specific "termination fee."</p>
+                </div>
+
+                <div class="risk-item risk-medium">
+                    <h4>Article 5.1: Ambiguous Payment Term</h4>
+                    <p><strong>Finding:</strong> The phrase "successful completion" is subjective and open to interpretation. The other party could arbitrarily claim the project was not successful to delay or refuse payment.</p>
+                    <p><strong>Strategic Interpretation:</strong> Payment should not be tied to an abstract concept like "success" but to concrete, measurable, and documented milestones, such as "completion of the analysis phase," "end of testing," or "go-live."</p>
+                </div>
+                
+                <div class="risk-item risk-medium">
+                    <h4>Article 9.1: Disproportionate Confidentiality Period</h4>
+                    <p><strong>Finding:</strong> An "unlimited period" of confidentiality is contrary to commercial practice and creates a disproportionate burden for the client. It is impractical for this obligation to persist for information that becomes public knowledge or loses its relevance over time.</p>
+                    <p><strong>Strategic Interpretation:</strong> It should be requested that the confidentiality obligation be limited to a reasonable period (e.g., 3 or 5 years) after the contract's termination. A longer period can be negotiated for information that qualifies as a trade secret.</p>
+                </div>
+
+                <div class="conclusion">
+                    <p><strong>Overall Assessment:</strong> This report identifies the asymmetrical risk distribution in the agreement and the ambiguities that are detrimental to the client. The points raised form the basis of strategic arguments to be used during negotiation to strengthen your client's position and prevent potential legal disputes.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
