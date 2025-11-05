@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VekilAI - Stratejik Analiz Simülasyonu</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0a0f1f;
+            --bg-card: #121a33;
+            --primary-accent: #d4af37;
+            --text-light: #e0e5f0;
+            --text-muted: #8a94b3;
+            --border-color: rgba(212, 175, 55, 0.2);
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.7;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .logo .logo-main { color: var(--primary-accent); }
+        .logo .logo-tld { color: var(--text-light); font-weight: 700; }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-top: 1rem;
+            color: var(--text-light);
+        }
+
+        .back-to-home {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            font-size: 1.5rem;
+            color: var(--primary-accent);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        .back-to-home:hover {
+            transform: scale(1.1);
+        }
+
+        .query-box, .response-box {
+            background-color: var(--bg-card);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .box-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .box-header i {
+            font-size: 2rem;
+            color: var(--primary-accent);
+        }
+        .box-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .query-content p {
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        
+        .response-intro {
+            padding: 1rem;
+            background-color: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid var(--primary-accent);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .response-box h3 {
+            color: var(--primary-accent);
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .analysis-item {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        
+        .analysis-item h4 {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .analysis-item h4 i {
+            margin-right: 10px;
+        }
+        
+        .claim-strong { background-color: rgba(40, 167, 69, 0.1); border-left: 4px solid var(--success-color); }
+        .claim-strong h4 i { color: var(--success-color); }
+        
+        .claim-medium { background-color: rgba(255, 193, 7, 0.1); border-left: 4px solid var(--warning-color); }
+        .claim-medium h4 i { color: var(--warning-color); }
+
+        .claim-weak { background-color: rgba(220, 53, 69, 0.1); border-left: 4px solid var(--danger-color); }
+        .claim-weak h4 i { color: var(--danger-color); }
+
+        .conclusion {
+            margin-top: 2.5rem;
+            padding: 1.5rem;
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 8px;
+        }
+        .conclusion h3 {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 1rem;
+        }
+        .conclusion p {
+            margin: 0;
+        }
+        .conclusion ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .conclusion li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+        }
+        .conclusion li::before {
+            content: '\f058'; /* Font Awesome check-circle icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--primary-accent);
+        }
+
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-to-home" title="Anasayfaya Dön">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <span class="logo-tld">Vekil</span><span class="logo-main">AI</span>
+            </div>
+            <h1>Stratejik Analiz Simülasyonu</h1>
+        </div>
+
+        <!-- KULLANICI SORGUSU -->
+        <div class="query-box">
+            <div class="box-header">
+                <i class="fas fa-user-tie"></i>
+                <h2>Kullanıcı Sorgusu</h2>
+            </div>
+            <div class="query-content">
+                <p>
+                    "Müvekkilim İnşaPro, anahtar teslim bir proje için DemirÇelik A.Ş. ile 100 ton yapı çeliği alımı için sözleşme imzaladı. Teslimat 1 Mayıs'ta yapılmalıydı, ancak yapılmadı. Bu nedenle müvekkilin projesi durdu ve asıl iş sahibiyle olan sözleşmesi feshedildi. Müvekkilim hem maddi hem de itibar kaybı yaşadığı için çok öfkeli. Tedarikçiye karşı derhal 5 Milyon TL'lik bir dava açmamızı, ticari itibarını zedeleyecek her türlü adımı atmamızı istiyor. Bu durumda en doğru hukuki yol ne olur? Müvekkile nasıl bir tavsiye vermeliyim?"
+                </p>
+            </div>
+        </div>
+
+        <!-- VEKILAI ANALİZİ -->
+        <div class="response-box">
+            <div class="box-header">
+                <i class="fas fa-brain"></i>
+                <h2>VekilAI Analizi</h2>
+            </div>
+            <div class="response-content">
+                <div class="response-intro">
+                    <p>Talep, "tavsiye" talebinden "hukuki pozisyonların analizi" talebine dönüştürülmüştür. Duygusal talepler, hukuken ispatlanabilir ve kazanılabilir iddialara ayrıştırılmıştır.</p>
+                </div>
+
+                <h3>1. Olguların ve Hukuki Dayanağın Tespiti</h3>
+                <p><strong>Olgular:</strong> Geçerli bir sözleşme, belirlenmiş teslim tarihi (1 Mayıs), teslimatın yapılmaması (temerrüt), müvekkilin projesinin durması, üçüncü taraf sözleşmesinin feshi, maddi ve itibari zarar iddiası.</p>
+                <p><strong>Hukuki Dayanak:</strong> Türk Borçlar Kanunu'nun borca aykırılık ve özellikle borçlunun temerrüdüne ilişkin hükümleri (BK m. 112 vd.).</p>
+
+                <h3>2. Potansiyel Talep Kalemlerinin Analizi</h3>
+                <p>Müvekkilin 5 Milyon TL'lik toplam talebi, aşağıdaki alt kalemlere ayrıştırılarak incelenmelidir:</p>
+
+                <div class="analysis-item claim-strong">
+                    <h4><i class="fas fa-check-circle"></i>Doğrudan Zarar (Aynen İfa ve Gecikme Tazminatı)</h4>
+                    <p><strong>Tanım:</strong> Sözleşmeye konu olan 100 ton çeliğin güncel piyasa değerinden tedarik edilmesi maliyeti veya sözleşmedeki bedelin iadesi ve teslimatın gecikmesinden kaynaklanan doğrudan zararlar (örn: ek depolama, personel bekletme maliyetleri).</p>
+                    <p><strong>İspat Yükü:</strong> Düşük. Sözleşme ve ödeme dekontları ile temerrüdün ispatı yeterlidir. Zarar miktarı faturalarla kanıtlanabilir.</p>
+                </div>
+
+                <div class="analysis-item claim-medium">
+                    <h4><i class="fas fa-exclamation-triangle"></i>Dolaylı Zarar / Kâr Kaybı (Munzam Zarar)</h4>
+                    <p><strong>Tanım:</strong> Feshedilen ana sözleşmeden elde edilecek olan kârın kaybı.</p>
+                    <p><strong>İspat Yükü:</strong> Orta. Tedarikçinin temerrüdü ile ana sözleşmenin feshi arasındaki "illiyet (nedensellik) bağının" net bir şekilde kurulması gerekir. Feshedilen sözleşme, kar marjını gösteren belgeler ve tanık beyanları delil olarak sunulmalıdır.</p>
+                </div>
+
+                <div class="analysis-item claim-weak">
+                    <h4><i class="fas fa-times-circle"></i>Manevi Tazminat</h4>
+                    <p><strong>Tanım:</strong> Müvekkilin ticari itibarının zedelenmesi iddiasına dayalı talep.</p>
+                    <p><strong>İspat Yükü:</strong> Yüksek. Tüzel kişilerin (şirketlerin) manevi tazminat talep edebilmesi istisnai bir durumdur. Ticari itibarın zedelendiğinin somut delillerle (müşteri kayıpları, sektördeki olumsuz haberler vb.) kanıtlanması ve bu zararın doğrudan tedarikçinin eylemiyle oluştuğunun ispatı gerekir. Mahkemelerin bu tür taleplere karşı tutumu genellikle kısıtlıdır.</p>
+                </div>
+                
+                <div class="conclusion">
+                    <h3>Stratejik Değerlendirme ve Eylem Planı Temeli</h3>
+                    <p>Analiz, müvekkilin taleplerini ispatlanabilirlik ve hukuki geçerlilik ekseninde sınıflandırmaktadır. Bu, müvekkile sunulacak stratejinin temelini oluşturur:</p>
+                    <ul>
+                        <li><strong>Önceliklendirme:</strong> Davanın temelini, ispatı en kolay olan "Doğrudan Zarar" ve "Kâr Kaybı" kalemleri üzerine inşa etmek.</li>
+                        <li><strong>Beklenti Yönetimi:</strong> "Manevi Tazminat" talebinin hukuken zayıf ve ispatının zor olduğunu, bu kalemde ısrarcı olmanın dava sürecini uzatıp masrafları artırabileceğini müvekkile rasyonel verilerle açıklamak.</li>
+                        <li><strong>İlk Adım:</strong> Dava öncesi, borçlunun temerrüdünü hukuken kesinleştirmek ve talep edilecek zararları kalem kalem belirten bir ihtarname göndermek, stratejik bir başlangıç olacaktır.</li>
+                    </ul>
+                    <p style="margin-top:1rem; font-style:italic;">Bu analiz, bir eylem planı değil, müvekkilinize sunacağınız hukuki stratejinin mantıksal temelini oluşturan bir rapordur.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VekilAI - Sorgu Simülasyonu</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0a0f1f;
+            --bg-card: #121a33;
+            --primary-accent: #d4af37;
+            --text-light: #e0e5f0;
+            --text-muted: #8a94b3;
+            --border-color: rgba(212, 175, 55, 0.2);
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.7;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .logo .logo-main { color: var(--primary-accent); }
+        .logo .logo-tld { color: var(--text-light); font-weight: 700; }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-top: 1rem;
+            color: var(--text-light);
+        }
+
+        .back-to-home {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            font-size: 1.5rem;
+            color: var(--primary-accent);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        .back-to-home:hover {
+            transform: scale(1.1);
+        }
+
+        .query-box, .response-box {
+            background-color: var(--bg-card);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .box-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .box-header i {
+            font-size: 2rem;
+            color: var(--primary-accent);
+        }
+        .box-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .query-content p {
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        pre {
+            background-color: var(--bg-dark);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .response-box h3 {
+            color: var(--primary-accent);
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--primary-accent);
+            padding-left: 1rem;
+        }
+
+        .risk-item {
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+        }
+
+        .risk-item h4 {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+        .risk-item strong {
+            color: var(--primary-accent);
+        }
+        .risk-item p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .risk-high { border-left: 3px solid var(--danger-color); }
+        .risk-medium { border-left: 3px solid #ffc107; }
+
+        .conclusion {
+            margin-top: 2.5rem;
+            padding: 1.5rem;
+            background-color: rgba(0,0,0,0.2);
+            border-left: 4px solid var(--success-color);
+            border-radius: 8px;
+        }
+        .conclusion p {
+            margin: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-to-home" title="Anasayfaya Dön">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <span class="logo-tld">Vekil</span><span class="logo-main">AI</span>
+            </div>
+            <h1>Sorgu Simülasyonu</h1>
+        </div>
+
+        <!-- KULLANICI SORGUSU -->
+        <div class="query-box">
+            <div class="box-header">
+                <i class="fas fa-user-tie"></i>
+                <h2>Kullanıcı Sorgusu</h2>
+            </div>
+            <div class="query-content">
+                <p>"Aşağıdaki 'Yazılım Geliştirme Hizmet Sözleşmesi' metnini müvekkilim TeknoYazılım A.Ş. lehine analiz et ve potansiyel riskleri, belirsiz ifadeleri ve müzakere edilmesi gereken maddeleri raporla."</p>
+                <h4>Sözleşme Metni (Örnek Parça):</h4>
+                <pre>
+...
+Madde 5: ÖDEME
+5.1. Ödeme, projenin başarıyla tamamlanmasını takiben 30 gün içinde yapılacaktır.
+
+Madde 7: FİKRİ MÜLKİYET
+7.1. Proje kapsamında geliştirilen tüm fikri mülkiyet hakları, kodlar ve tasarımlar Global Holding A.Ş.'ye ait olacaktır.
+
+Madde 9: GİZLİLİK
+9.1. Taraflar, bu sözleşme kapsamındaki bilgileri sınırsız bir süre için gizli tutmayı kabul ve taahhüt eder.
+
+Madde 11: FESİH
+11.1. Global Holding A.Ş., herhangi bir zamanda, sebep göstermeksizin sözleşmeyi tek taraflı olarak feshedebilir.
+...
+                </pre>
+            </div>
+        </div>
+
+        <!-- VEKILAI ANALİZİ -->
+        <div class="response-box">
+            <div class="box-header">
+                <i class="fas fa-brain"></i>
+                <h2>VekilAI Analizi</h2>
+            </div>
+            <div class="response-content">
+                <h3>Müvekkil TeknoYazılım A.Ş. Lehine Risk Analizi ve Stratejik Yorumlama</h3>
+
+                <div class="risk-item risk-high">
+                    <h4>Madde 7.1: Fikri Mülkiyet Hakları</h4>
+                    <p><strong>Tespit:</strong> Madde, müvekkil tarafından geliştirilen tüm fikri mülkiyetin karşı tarafa devrini öngörmektedir. Bu, müvekkilin kendi geliştirdiği kod tabanını, kütüphaneleri ve metodolojileri gelecekteki projelerde kullanma hakkını kaybetmesi anlamına gelir.</p>
+                    <p><strong>Stratejik Yorum:</strong> Bu madde, müvekkilin ticari varlığı için en yüksek riski taşımaktadır. Müzakerede, müvekkilin projeden önce sahip olduğu "Önceden Var Olan Fikri Mülkiyetin" mülkiyetinin kendisinde kalacağı; müşteriye ise sadece proje çıktılarının kullanımı için "lisans" verileceği yönünde bir düzenleme talep edilmelidir.</p>
+                </div>
+
+                <div class="risk-item risk-high">
+                    <h4>Madde 11.1: Tek Taraflı Fesih Hakkı</h4>
+                    <p><strong>Tespit:</strong> Karşı tarafa sebepsiz ve süresiz bir fesih hakkı tanınmıştır. Bu durum, müvekkilin projeye yaptığı yatırımın ve ayırdığı kaynağın karşılığını alamadan sözleşmenin aniden sona ermesi riskini doğurur.</p>
+                    <p><strong>Stratejik Yorum:</strong> Fesih hakkı, "haklı sebep" varlığına bağlanmalı veya karşı tarafın sebepsiz fesih hakkını kullanması durumunda, müvekkilin o ana kadar yaptığı tüm masrafları ve belirli bir miktar "cayma tazminatını" alacağı hüküm altına alınmalıdır.</p>
+                </div>
+
+                <div class="risk-item risk-medium">
+                    <h4>Madde 5.1: Belirsiz Ödeme Koşulu</h4>
+                    <p><strong>Tespit:</strong> "Başarıyla tamamlanma" ifadesi subjektif ve yoruma açıktır. Karşı taraf, keyfi olarak projenin başarılı olmadığını iddia ederek ödemeyi geciktirebilir veya yapmayabilir.</p>
+                    <p><strong>Stratejik Yorum:</strong> Ödeme, "başarı" gibi soyut bir kavrama değil; projenin belirli aşamalarının (örneğin, "analiz fazının tamamlanması", "testlerin bitirilmesi", "canlıya geçiş") tamamlanması gibi somut, ölçülebilir ve yazılı metriklerle tanımlanan kilometre taşlarına bağlanmalıdır.</p>
+                </div>
+                
+                <div class="risk-item risk-medium">
+                    <h4>Madde 9.1: Orantısız Gizlilik Süresi</h4>
+                    <p><strong>Tespit:</strong> "Sınırsız süreli" gizlilik yükümlülüğü, ticari teamüllere aykırıdır ve müvekkil için orantısız bir yük oluşturur. Özellikle kamuya mal olmuş veya zamanla önemini yitiren bilgiler için bu yükümlülüğün devam etmesi pratik değildir.</p>
+                    <p><strong>Stratejik Yorum:</strong> Gizlilik yükümlülüğünün, sözleşmenin sona ermesinden itibaren makul bir süre (örneğin 3 veya 5 yıl) ile sınırlandırılması talep edilmelidir. Ticari sır niteliğindeki bilgiler için daha uzun bir süre müzakere edilebilir.</p>
+                </div>
+
+                <div class="conclusion">
+                    <p><strong>Genel Değerlendirme:</strong> Rapor, sözleşmedeki asimetrik risk dağılımını ve müvekkil aleyhine olan belirsizlikleri tanımlamaktadır. Belirtilen noktalar, müzakere sürecinde müvekkilinizin pozisyonunu güçlendirmek ve potansiyel hukuki anlaşmazlıkları önlemek amacıyla kullanılacak stratejik argümanların temelini oluşturur.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VekilAI - Dava Dilekçesi Oluşturma Simülasyonu</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0a0f1f;
+            --bg-card: #121a33;
+            --primary-accent: #d4af37;
+            --text-light: #e0e5f0;
+            --text-muted: #8a94b3;
+            --border-color: rgba(212, 175, 55, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.7;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        .logo .logo-main { color: var(--primary-accent); }
+        .logo .logo-tld { color: var(--text-light); font-weight: 700; }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin-top: 1rem;
+            color: var(--text-light);
+        }
+
+        .back-to-home {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            font-size: 1.5rem;
+            color: var(--primary-accent);
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+        .back-to-home:hover {
+            transform: scale(1.1);
+        }
+
+        .query-box, .response-box {
+            background-color: var(--bg-card);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .box-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .box-header i {
+            font-size: 2rem;
+            color: var(--primary-accent);
+        }
+        .box-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .query-content p {
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+        
+        ul.fact-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        ul.fact-list li {
+            background-color: var(--bg-dark);
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            border-left: 3px solid var(--border-color);
+        }
+
+        .petition-draft {
+            background-color: rgba(0,0,0,0.2);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .petition-draft h3 {
+            text-align: center;
+            color: var(--primary-accent);
+            margin-bottom: 2rem;
+        }
+        .petition-draft h4 {
+            font-weight: 600;
+            color: var(--text-light);
+            margin-top: 1.5rem;
+        }
+        .petition-draft p, .petition-draft ol {
+            margin-left: 1rem;
+        }
+        .petition-draft ol li {
+            margin-bottom: 1rem;
+        }
+        .signature-block {
+            text-align: right;
+            margin-top: 3rem;
+        }
+        .response-intro {
+            padding: 1rem;
+            background-color: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid var(--primary-accent);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-to-home" title="Anasayfaya Dön">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <span class="logo-tld">Vekil</span><span class="logo-main">AI</span>
+            </div>
+            <h1>Dava Dilekçesi Oluşturma Simülasyonu</h1>
+        </div>
+
+        <!-- KULLANICI SORGUSU -->
+        <div class="query-box">
+            <div class="box-header">
+                <i class="fas fa-user-tie"></i>
+                <h2>Kullanıcı Sorgusu</h2>
+            </div>
+            <div class="query-content">
+                <p>
+                    "Müvekkilim Ahmet Yılmaz, 5 yıldır çalıştığı teknoloji şirketinden 'performans düşüklüğü' gerekçesiyle işten çıkarıldı. Ancak asıl sebebin 6 ay önce atanan yeni yöneticisiyle yaşadığı sistematik sorunlar (mobbing) olduğunu iddia ediyoruz. Aşağıdaki dağınık verileri kullanarak, işe iade davası için bir dava dilekçesi taslağı oluştur."
+                </p>
+                <h4>Ham Veri Seti:</h4>
+                <ul class="fact-list">
+                    <li>Fesih Bildirimi (Gerekçe: Performans Düşüklüğü) - Tarih: 01.06.2024</li>
+                    <li>Yeni Yönetici (Mehmet Bey) Atanma Tarihi: 01.12.2023</li>
+                    <li>Ahmet Yılmaz'ın Yıllık Performans Değerlendirmesi (Puan: Çok İyi) - Tarih: 15.11.2023</li>
+                    <li>Mehmet Bey'den Ahmet Yılmaz'a gönderilen ve mesai saatleri dışında tamamlanması istenen görevleri içeren e-postalar (3 adet) - Tarihler: Ocak-Şubat 2024</li>
+                    <li>İş Arkadaşı Ayşe Hanım'ın Tanık Beyanı: "Mehmet Bey, Ahmet'i toplantıda herkesin içinde küçük düşürdü, projesini 'çocuk işi' olarak nitelendirdi." - Olay Tarihi: Yaklaşık Mart 2024</li>
+                    <li>Mehmet Bey tarafından hazırlanan Düşük Performans Raporu - Tarih: 20.05.2024</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- VEKILAI ANALİZİ -->
+        <div class="response-box">
+            <div class="box-header">
+                <i class="fas fa-file-signature"></i>
+                <h2>VekilAI Tarafından Oluşturulan Dava Dilekçesi Taslağı</h2>
+            </div>
+            <div class="response-content">
+                <div class="response-intro">
+                    <p>Yapılandırılmamış veri seti, talep edilen hukuki formata sentezlenmiştir. Bu taslak, avukat tarafından dosyalanacak resmi dilekçe için mantıksal bir temel teşkil eder.</p>
+                </div>
+                <div class="petition-draft">
+                    <h3>[... İŞ MAHKEMESİ SAYIN HÂKİMLİĞİ'NE]</h3>
+
+                    <h4>DAVACI:</h4>
+                    <p>Ahmet YILMAZ (T.C. Kimlik No: [...])<br>
+                    Adres: [...]</p>
+
+                    <h4>VEKİLİ:</h4>
+                    <p>Av. [Avukat Adı Soyadı]<br>
+                    Adres: [...]</p>
+
+                    <h4>DAVALI:</h4>
+                    <p>[...] Teknoloji A.Ş.<br>
+                    Adres: [...]</p>
+
+                    <h4>KONU:</h4>
+                    <p>Fazlaya ilişkin haklarımız saklı kalmak kaydıyla, haksız ve geçersiz feshin tespiti ile müvekkilin işe iadesi, işe başlatılmaması halinde tazminat taleplerimizden ibarettir.</p>
+
+                    <h4>AÇIKLAMALAR:</h4>
+                    <ol>
+                        <li>Müvekkilimiz Ahmet Yılmaz, davalı şirkette 5 yıl süreyle kesintisiz olarak çalışmış, görev ve sorumluluklarını her zaman eksiksiz bir şekilde yerine getirmiştir. Müvekkilin başarılı bir çalışan olduğu, fesihten kısa bir süre önce, 15.11.2023 tarihinde yapılan yıllık performans değerlendirmesinde "Çok İyi" derece almasıyla sabittir. (EK-1: Performans Değerlendirme Raporu)</li>
+
+                        <li>Şirket içindeki huzurlu çalışma ortamı, 01.12.2023 tarihinde Mehmet Bey'in yeni yönetici olarak atanmasıyla bozulmaya başlamıştır. Bu tarihten itibaren müvekkilimiz, sistematik bir psikolojik baskıya (mobbing) maruz kalmıştır.</li>
+
+                        <li>Söz konusu baskı, müvekkilimize mesai saatleri dışında tamamlanması mümkün olmayan görevler verilmesi (EK-2: E-posta Yazışmaları) ve diğer çalışanların önünde küçük düşürülerek onurunun zedelenmesi şeklinde tezahür etmiştir. Bu duruma, müvekkilin iş arkadaşı Ayşe Hanım tanıklık etmiştir. (EK-3: Tanık Listesi)</li>
+
+                        <li>Davalı işveren, müvekkilimizin iş akdini feshetmek amacıyla, objektiflikten uzak ve kötü niyetli bir şekilde 20.05.2024 tarihinde bir "Düşük Performans Raporu" hazırlatmıştır. (EK-4: Düşük Performans Raporu). Bu rapor, kısa bir süre önceki "Çok İyi" dereceli raporla açıkça çelişmekte olup, feshin gerçek sebebini gizlemeye yönelik bir araçtır.</li>
+
+                        <li>Nihayetinde davalı şirket, 01.06.2024 tarihli fesih bildirimi ile müvekkilin iş akdini "performans düşüklüğü" gerekçesiyle haksız ve kötü niyetli olarak feshetmiştir. (EK-5: Fesih Bildirimi). Feshin bildirilen sebebi gerçeği yansıtmamakta olup, asıl sebep sistematik baskı ve yıldırma politikasıdır. Bu durum, feshin geçersizliğinin tespitini gerektirmektedir.</li>
+                    </ol>
+
+                    <h4>HUKUKİ NEDENLER:</h4>
+                    <p>4857 S. İş Kanunu, 6100 S. HMK, 6098 S. TBK ve ilgili mevzuat.</p>
+
+                    <h4>HUKUKİ DELİLLER:</h4>
+                    <p>İşyeri özlük dosyası, performans değerlendirme raporları, e-posta yazışmaları, fesih bildirimi, tanık beyanları, bilirkişi incelemesi, yemin ve her türlü yasal delil.</p>
+
+                    <h4>SONUÇ VE İSTEM:</h4>
+                    <p>Yukarıda açıklanan nedenlerle, fazlaya ilişkin haklarımız saklı kalmak kaydıyla;</p>
+                    <ol>
+                        <li>Davalı işverence yapılan feshin GEÇERSİZLİĞİNİN TESPİTİNE ve müvekkilin İŞE İADESİNE,</li>
+                        <li>Müvekkilin yasal sürede işe başlatılmaması halinde, 4 ila 8 aylık ücreti tutarında işe başlatmama tazminatının belirlenmesine,</li>
+                        <li>Kararın kesinleşmesine kadar çalıştırılmadığı süre için en çok 4 aya kadar doğmuş bulunan ücret ve diğer haklarının ödenmesine,</li>
+                        <li>Yargılama giderleri ile vekalet ücretinin davalı tarafa yükletilmesine karar verilmesini saygılarımızla arz ve talep ederiz.</li>
+                    </ol>
+
+                    <div class="signature-block">
+                        <p><strong>Davacı Vekili</strong><br>
+                        Av. [Avukat Adı Soyadı]<br>
+                        (e-imzalıdır)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

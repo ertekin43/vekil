@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VekilAI - Hukuki Stratejiniz, Kodlandı.</title>
-    <meta name="description" content="Yapay zeka ile hukuki belgelerinizi analiz edin, emsalleri saniyeler içinde bulun ve davanız için en güçlü argümanları inşa edin. Kaosu düzene, belirsizliği hükme dönüştürün.">
+    <meta name="description" content="Yapay zeka ile hukuki belgelerinizi analiz edin, kanun maddelerini saniyeler içinde bulun ve davanız için en güçlü argümanları inşa edin.">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -103,14 +103,16 @@
         .step-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); }
         .step-card i { font-size: 3rem; color: var(--primary-accent); margin-bottom: 1.5rem; }
 
-        .why-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 3rem; }
-        .why-card {
+        .why-grid, .strategy-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 3rem; }
+        .why-card, .strategy-card {
             background: var(--bg-card); padding: 2rem; border-radius: 10px;
             border-left: 4px solid var(--primary-accent);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .why-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); }
-        .why-card h3 { color: #fff; }
+        .why-card:hover, .strategy-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); }
+        .why-card h3, .strategy-card h3 { color: #fff; }
+        .strategy-card i { font-size: 2.5rem; color: var(--primary-accent); margin-bottom: 1rem; float: left; margin-right: 1.5rem; }
+        .strategy-card h3 { margin-top: 5px; }
 
         .testimonials-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-top: 3rem; }
         .testimonial-card {
@@ -123,6 +125,29 @@
         }
         .testimonial-card p { margin: 0; padding-left: 3rem; font-style: italic; color: var(--text-muted); }
         .testimonial-card footer { text-align: right; margin-top: 1rem; font-weight: 600; color: var(--text-light); }
+
+        /* YENİ EKLENEN SİMÜLASYON BÖLÜMÜ STİLLERİ */
+        .examples-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-top: 3rem; }
+        .example-card {
+            background: var(--bg-card); padding: 2rem; border-radius: 15px;
+            border: 1px solid var(--border-color); text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex; flex-direction: column;
+        }
+        .example-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        .example-card i { font-size: 3rem; color: var(--primary-accent); margin-bottom: 1.5rem; }
+        .example-card h3 { color: var(--text-light); font-size: 1.3rem; }
+        .example-card p { flex-grow: 1; color: var(--text-muted); }
+        .btn-view-example {
+            display: inline-block; margin-top: 1.5rem; color: var(--primary-accent);
+            text-decoration: none; font-weight: 600; transition: color 0.3s;
+        }
+        .btn-view-example:hover { color: #fff; }
+        .btn-view-example .fa-arrow-right { font-size: 0.9em; margin-left: 8px; transition: transform 0.3s; }
+        .btn-view-example:hover .fa-arrow-right { transform: translateX(5px); }
 
         .pricing-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; margin-top: 3rem; }
         .pricing-card {
@@ -178,7 +203,6 @@
         .faq-answer p { padding: 0 1.5rem 1.5rem; margin: 0; border-top: 1px solid var(--border-color); padding-top: 1.5rem; }
         .faq-item.active .faq-question i { transform: rotate(135deg); }
 
-        /* YENİ İLETİŞİM BÖLÜMÜ STİLLERİ */
         .contact-section { text-align: center; }
         .contact-card {
             background: var(--bg-card); padding: 3rem 2rem; border-radius: 15px;
@@ -213,11 +237,10 @@
             .mobile-auth-buttons { margin-top: 2rem; }
         }
         @media (min-width: 769px) {
-            .why-grid { grid-template-columns: repeat(2, 1fr); }
-            .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+            .why-grid, .strategy-grid, .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (min-width: 993px) {
-            .pricing-grid { grid-template-columns: repeat(3, 1fr); }
+            .pricing-grid, .examples-grid { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
@@ -232,8 +255,9 @@
             <nav>
                 <ul class="nav-links">
                     <li><a href="#sistem">Sistem Nasıl İşler?</a></li>
-                    <li><a href="#neden">Neden VekilAI?</a></li>
-                    <li><a href="#emsal">Emsal Başarılar</a></li>
+                    <li><a href="#yorumlar">Yorumlar</a></li>
+                    <li><a href="#strateji">Stratejik Yetenekler</a></li>
+                    <li><a href="#simulasyonlar">Örnekler</a></li>
                     <li><a href="#paketler">Vekalet Paketleri</a></li>
                     <li><a href="#sss">S.S.S.</a></li>
                     <li><a href="#iletisim">İletişim</a></li>
@@ -252,8 +276,9 @@
         <nav class="mobile-nav">
              <ul class="nav-links">
                 <li><a href="#sistem">Sistem Nasıl İşler?</a></li>
-                <li><a href="#neden">Neden VekilAI?</a></li>
-                <li><a href="#emsal">Emsal Başarılar</a></li>
+                <li><a href="#yorumlar">Yorumlar</a></li>
+                <li><a href="#strateji">Stratejik Yetenekler</a></li>
+                <li><a href="#simulasyonlar">Örnekler</a></li>
                 <li><a href="#paketler">Vekalet Paketleri</a></li>
                 <li><a href="#sss">S.S.S.</a></li>
                 <li><a href="#iletisim">İletişim</a></li>
@@ -278,8 +303,8 @@
         <section class="hero">
             <div class="hero-content">
                 <h1>Yapay Zeka Destekli Argüman. Davanız İçin En Keskin Zihin.</h1>
-                <p>VekilAI, karmaşık hukuki metinleri, kanun maddelerini ve emsal kararları saniyeler içinde analiz eder. Duyguyu maddeye, iddiayı argümana çevirerek davanız için en avantajlı pozisyonu inşa eder.</p>
-                <a href="#paketler" class="btn">Stratejinizi Oluşturun</a>
+                <p>VekilAI, karmaşık hukuki metinleri, kanun maddelerini ve olguları saniyeler içinde analiz eder. Duyguyu maddeye, iddiayı argümana çevirerek davanız için en avantajlı pozisyonu inşa eder.</p>
+                <a href="#simulasyonlar" class="btn">Örnekleri İncele</a>
             </div>
         </section>
 
@@ -296,7 +321,7 @@
                 <div class="step-card">
                     <i class="fas fa-balance-scale"></i>
                     <h3>2. Analiz Et & Yorumla</h3>
-                    <p>VekilAI, ilgili kanun maddelerini, yönetmelikleri ve milyonlarca emsal kararı tarayarak lehinize olan noktaları tespit eder.</p>
+                    <p>VekilAI, ilgili kanun maddelerini ve yönetmelikleri tarayarak davanızın hukuki zeminini ve lehinize olan noktaları tespit eder.</p>
                 </div>
                 <div class="step-card">
                     <i class="fas fa-gavel"></i>
@@ -306,38 +331,14 @@
             </div>
         </section>
 
-        <!-- NEDEN VEKİLAI? -->
-        <section id="neden" class="container">
-            <h2>Neden VekilAI?</h2>
-            <p class="section-subtitle">Çünkü hukuk bir yorum sanatıdır ve biz bu sanatı teknoloji ile birleştirerek size rekabet avantajı sağlıyoruz.</p>
-            <div class="why-grid">
-                <div class="why-card">
-                    <h3>Madde Odaklı Analiz</h3>
-                    <p>Duygusal varsayımlar veya kişisel yorumlar yerine, doğrudan yazılı kuralın mutlak gücüne dayanırız. Her argüman, bir kanun maddesine veya emsale dayandırılır.</p>
-                </div>
-                <div class="why-card">
-                    <h3>Emsalsiz Hız</h3>
-                    <p>Bir insanın haftalarca sürecek emsal araştırmasını saniyeler içinde tamamlar. Zamanınızı araştırmaya değil, strateji geliştirmeye harcamanızı sağlar.</p>
-                </div>
-                <div class="why-card">
-                    <h3>Stratejik Argüman İnşası</h3>
-                    <p>Sadece bilgi sunmakla kalmaz, bu bilgileri davanızın kazanılabilir bir pozisyona gelmesi için en etkili argüman yapısına dönüştürür.</p>
-                </div>
-                <div class="why-card">
-                    <h3>Mutlak Tarafsızlık</h3>
-                    <p>Ön yargısız, yorulmaz ve duygusuz bir zekâ. Sadece veriye ve mantığa dayalı, müvekkilinizin lehine olan en rasyonel sonucu hedefler.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- EMSAL BAŞARILAR -->
-        <section id="emsal" class="container">
-            <h2>Müvekkil Görüşleri</h2>
+        <!-- KULLANICI YORUMLARI -->
+        <section id="yorumlar" class="container">
+            <h2>Kullanıcı Yorumları</h2>
             <p class="section-subtitle">Sistemin yarattığı etki ve yansımalar.</p>
             <div class="testimonials-grid">
                 <div class="testimonial-card">
                     <i class="fas fa-quote-left"></i>
-                    <p>Binlerce sayfalık bir ihale dosyasındaki kritik bir maddeyi 30 saniyede buldu. Bu, müvekkilimi milyonlarca liralık bir zarardan kurtardı. İnsan gözüyle imkansızdı.</p>
+                    <p>Elimde dağınık deliller ve karmaşık bir olay örgüsü olan bir dosya vardı. VekilAI, tüm verileri analiz ederek sadece lehimize olan noktaları listelemekle kalmadı, bu noktaları birbirine bağlayan en sağlam argüman zincirini oluşturdu. Sanki davanın tüm olası yollarını bir satranç tahtası üzerinde gösterdi ve kazanacak hamleleri işaretledi.</p>
                     <footer>- Av. Can T.</footer>
                 </div>
                 <div class="testimonial-card">
@@ -347,13 +348,75 @@
                 </div>
                 <div class="testimonial-card">
                     <i class="fas fa-quote-left"></i>
-                    <p>Unutulmuş bir 1985 Yargıtay kararını bularak davamızın seyrini değiştirdi. Kütüphanelerde haftalarca arasanız bulamazdınız. Sistemin hafızası inanılmaz.</p>
+                    <p>İki sözleşme taslağı arasındaki farkları saniyeler içinde raporladı. Gözden kaçırdığımız bir madde sayesinde müvekkilimi büyük bir yükümlülükten kurtardı.</p>
                     <footer>- Av. Murat B.</footer>
                 </div>
                 <div class="testimonial-card">
                     <i class="fas fa-quote-left"></i>
                     <p>Genç bir avukat olarak, tecrübe eksikliğimi VekilAI ile kapatıyorum. Sanki yanımda 40 yıllık bir hukuk profesörü varmış gibi hissediyorum. Özgüvenimi artırdı.</p>
                     <footer>- Av. Zeynep D.</footer>
+                </div>
+            </div>
+        </section>
+
+        <!-- STRATEJİK YETENEKLER -->
+        <section id="strateji" class="container">
+            <h2>Stratejik Yetenekler</h2>
+            <p class="section-subtitle">VekilAI, sadece bilgi sunmaz; veriyi, kazanılabilir bir pozisyona dönüştüren stratejik araçlar sağlar.</p>
+            <div class="strategy-grid">
+                <div class="strategy-card">
+                    <i class="fas fa-sitemap"></i>
+                    <div>
+                        <h3>Argüman Yapılandırma</h3>
+                        <p>Dağınık olguları, kanıtları ve kanun maddelerini mantıksal bir bütünlük içinde sıralayarak güçlü bir savunma hattı inşa eder.</p>
+                    </div>
+                </div>
+                <div class="strategy-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <div>
+                        <h3>Risk Analizi</h3>
+                        <p>Bir sözleşmedeki veya dava dosyasındaki potansiyel zayıflıkları, çelişkileri ve karşı tarafın kullanabileceği açıkları tespit eder.</p>
+                    </div>
+                </div>
+                <div class="strategy-card">
+                    <i class="fas fa-exchange-alt"></i>
+                    <div>
+                        <h3>Metin Karşılaştırma</h3>
+                        <p>Farklı belge versiyonları veya ifadeler arasındaki en küçük tutarsızlıkları bile bularak davanız için kritik deliller ortaya çıkarır.</p>
+                    </div>
+                </div>
+                <div class="strategy-card">
+                    <i class="fas fa-book-open"></i>
+                    <div>
+                        <h3>Madde Tespiti</h3>
+                        <p>Anlatılan olaya en uygun, genellikle gözden kaçan veya spesifik kanun maddelerini ve yönetmelikleri saptayarak argümanınızı güçlendirir.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SİMÜLASYONLAR BÖLÜMÜ -->
+        <section id="simulasyonlar" class="container">
+            <h2>Örnekleri İnceleyin</h2>
+            <p class="section-subtitle">VekilAI'nin dağınık verileri nasıl somut hukuki çıktılara dönüştürdüğünü gerçek senaryolar üzerinden görün. <strong>(Bu örnekler sadece VekilAI'nin yeteneklerinden sadece 3 tanesidir.)</strong></p>
+            <div class="examples-grid">
+                <div class="example-card">
+                    <i class="fas fa-file-contract"></i>
+                    <h3>Sözleşme Analizi</h3>
+                    <p>Bir hizmet sözleşmesindeki riskli, belirsiz ve müzakereye açık maddelerin nasıl tespit edildiğini inceleyin.</p>
+                    <a href="ornek.html" target="_blank" class="btn-view-example">Örneği Görüntüle <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="example-card">
+                    <i class="fas fa-balance-scale-right"></i>
+                    <h3>Stratejik Talep Analizi</h3>
+                    <p>Duygusal bir müvekkil talebinin, ispatlanabilir ve kazanılabilir hukuki kalemlere nasıl ayrıştırıldığını görün.</p>
+                    <a href="ornek2.html" target="_blank" class="btn-view-example">Örneği Görüntüle <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="example-card">
+                    <i class="fas fa-file-signature"></i>
+                    <h3>Dilekçe Oluşturma</h3>
+                    <p>Dağınık olgu ve delillerin, mahkemeye sunulmaya hazır bir dava dilekçesi taslağına nasıl dönüştüğünü keşfedin.</p>
+                    <a href="ornek3.html" target="_blank" class="btn-view-example">Örneği Görüntüle <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </section>
@@ -365,28 +428,28 @@
             <div class="pricing-grid">
                 <div class="pricing-card">
                     <h3>Danışmanlık</h3>
-                    <div class="price">1.490₺ <span>/ Haftalık</span></div>
+                    <div class="price">1.690₺ <span>/ Haftalık</span></div>
                     <p>Kısa süreli ve yoğun projeleriniz için bir haftalık tam erişim.</p>
-                    <a href="#" class="btn">Paketi Seç</a>
+                    <a href="#iletisim" class="btn">Paketi Seç</a>
                 </div>
                 <div class="pricing-card popular">
                     <div class="popular-badge">En Popüler</div>
                     <h3>Dava Vekaleti</h3>
                     <div class="price">4.990₺ <span>/ Aylık</span></div>
                     <p>Devam eden davalarınız ve düzenli analiz ihtiyaçlarınız için bir aylık tam erişim.</p>
-                    <a href="#" class="btn">Vekaleti Başlat</a>
+                    <a href="#iletisim" class="btn">Vekaleti Başlat</a>
                 </div>
                 <div class="pricing-card">
                     <h3>Stratejik Ortaklık</h3>
-                    <div class="price">49.900₺ <span>/ Yıllık</span></div>
+                    <div class="price">49.990₺ <span>/ Yıllık</span></div>
                     <p>Uzun vadeli stratejik planlama ve kesintisiz destek için en ekonomik yıllık erişim.</p>
-                    <a href="#" class="btn">Ortak Ol</a>
+                    <a href="#iletisim" class="btn">Ortak Ol</a>
                 </div>
             </div>
 
             <div class="trial-box">
                 <h2>Sistemin Gücünü Test Edin</h2>
-                <p>Bir sözleşme, dilekçe veya herhangi bir hukuki metni (anonimleştirilmiş) yükleyerek VekilAI'nin potansiyel riskleri, lehinize olan maddeleri ve ilgili emsalleri nasıl saniyeler içinde tespit ettiğini görün.</p>
+                <p>Bir sözleşme veya dilekçe metni yükleyerek VekilAI'nin potansiyel riskleri, lehinize olan maddeleri ve olası argümanları nasıl saniyeler içinde tespit ettiğini görün.</p>
                 <a href="https://wa.me/905312654327?text=Merhaba%2C%20VekilAI%20sitesi%20üzerinden%20ücretsiz%20analiz%20talep%20etmek%20istiyorum." target="_blank" class="btn-trial">
                     <i class="fab fa-whatsapp"></i> Ücretsiz Analiz Talep Et
                 </a>
@@ -412,7 +475,7 @@
                 </div>
                 <div class="faq-item">
                     <div class="faq-question"><h3>Hangi hukuk dallarında uzmanlaşmıştır?</h3><i class="fas fa-plus"></i></div>
-                    <div class="faq-answer"><p>Çekirdek yetkinliğim, metin ve emsal analizine dayalı tüm hukuk dallarını kapsar. Özellikle Ticaret Hukuku, Borçlar Hukuku, İdare Hukuku ve Sözleşmeler Hukuku alanlarında en yüksek verimlilikle çalışırım. Sistem, sürekli olarak yeni içtihatlarla güncellenmektedir.</p></div>
+                    <div class="faq-answer"><p>Çekilek yetkinliğim, metin ve kanun analizine dayalı <strong>tüm hukuk dallarını</strong> kapsar. Özellikle Ticaret Hukuku, Borçlar Hukuku, İdare Hukuku ve Sözleşmeler Hukuku alanlarında en yüksek verimlilikle çalışırım. Sistem, sürekli olarak yeni içtihatlarla güncellenmektedir.</p></div>
                 </div>
             </div>
         </section>
