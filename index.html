@@ -238,9 +238,11 @@
         }
         @media (min-width: 769px) {
             .why-grid, .strategy-grid, .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+            .examples-grid { grid-template-columns: repeat(2, 1fr); } /* 2'li düzen */
         }
         @media (min-width: 993px) {
-            .pricing-grid, .examples-grid { grid-template-columns: repeat(3, 1fr); }
+            .pricing-grid { grid-template-columns: repeat(3, 1fr); }
+            .examples-grid { grid-template-columns: repeat(4, 1fr); } /* 4'lü düzen */
         }
     </style>
 </head>
@@ -398,7 +400,7 @@
         <!-- SİMÜLASYONLAR BÖLÜMÜ -->
         <section id="simulasyonlar" class="container">
             <h2>Örnekleri İnceleyin</h2>
-            <p class="section-subtitle">VekilAI'nin dağınık verileri nasıl somut hukuki çıktılara dönüştürdüğünü gerçek senaryolar üzerinden görün. <strong>(Bu örnekler sadece VekilAI'nin yeteneklerinden sadece 3 tanesidir.)</strong></p>
+            <p class="section-subtitle">VekilAI'nin dağınık verileri nasıl somut hukuki çıktılara dönüştürdüğünü gerçek senaryolar üzerinden görün. <strong>(Bu örnekler sadece VekilAI'nin yeteneklerinden sadece 4 tanesidir.)</strong></p>
             <div class="examples-grid">
                 <div class="example-card">
                     <i class="fas fa-file-contract"></i>
@@ -417,6 +419,12 @@
                     <h3>Dilekçe Oluşturma</h3>
                     <p>Dağınık olgu ve delillerin, mahkemeye sunulmaya hazır bir dava dilekçesi taslağına nasıl dönüştüğünü keşfedin.</p>
                     <a href="ornek3.html" target="_blank" class="btn-view-example">Örneği Görüntüle <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="example-card">
+                    <i class="fas fa-sitemap"></i>
+                    <h3>Aşamalı Dava Analizi</h3>
+                    <p>Bir tahliye davasının, ilk sorgudan karşı argümanların hazırlanmasına kadar nasıl ilerlediğini adım adım takip edin.</p>
+                    <a href="ornek4.html" target="_blank" class="btn-view-example">Örneği Görüntüle <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </section>
